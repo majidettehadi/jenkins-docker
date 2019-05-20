@@ -3,6 +3,12 @@ FROM majid7221/java:oracle-11
 ENV JENKINS_HOME /var/jenkins_home
 ENV JENKINS_SLAVE_AGENT_PORT 50000
 
+# Req
+RUN set -ex \
+    && apt-get update \
+    && apt-get install -y ttf-dejavu fontconfig \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
+
 RUN set -ex \
     && groupadd jenkins \
     && useradd -d "$JENKINS_HOME" -m -s /bin/bash -g jenkins jenkins \
