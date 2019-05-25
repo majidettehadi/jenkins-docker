@@ -44,6 +44,9 @@ EXPOSE 50000
 
 ENV COPY_REFERENCE_FILE_LOG $JENKINS_HOME/copy_reference_file.log
 
+RUN ln -s /lib/libc.musl-x86_64.so.1 /usr/lib/libc.musl-x86_64.so.1
+ENV LD_LIBRARY_PATH=/usr/lib
+
 COPY files/jenkins-support /usr/local/bin/jenkins-support
 COPY files/jenkins.sh /usr/local/bin/jenkins.sh
 ENTRYPOINT ["/usr/bin/dumb-init", "-cv" ,"/usr/local/bin/jenkins.sh"]
