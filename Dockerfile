@@ -37,6 +37,12 @@ RUN set -ex \
     && usermod -a -G docker jenkins \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
+# Install ansible
+RUN set -ex \
+    && apt-get update \
+    && apt-get -y install ansible \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
+
 # http port
 EXPOSE 8080
 # agent port
