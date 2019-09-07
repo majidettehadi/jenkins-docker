@@ -37,9 +37,9 @@ RUN set -ex \
     && usermod -a -G docker jenkins \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
-# Install ansible
+# Install ansible 2.8
 RUN set -ex \
-    && echo "deb http://ppa.launchpad.net/ansible/ansible/ubuntu trusty main" > /etc/apt/sources.list.d/ansible \
+    && echo "deb http://ppa.launchpad.net/ansible/ansible-2.8/ubuntu trusty main" > /etc/apt/sources.list.d/ansible \
     && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
     && apt-get update \
     && apt-get -y install ansible \
