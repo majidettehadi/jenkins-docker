@@ -47,7 +47,7 @@ RUN set -ex \
 # Install docker pyhton module and docker compose
 RUN set -ex \
     && apt-get update \
-    && apt-get install python-pip \
+    && apt-get -y install python-pip \
     && pip install docker docker-compose \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
