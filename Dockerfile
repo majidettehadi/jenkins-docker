@@ -37,13 +37,18 @@ RUN set -ex \
     && usermod -a -G docker jenkins \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
-# Install ansible 2.8
+# Install ansible
 RUN set -ex \
-    && echo "deb http://ppa.launchpad.net/ansible/ansible-2.8/ubuntu trusty main" > /etc/apt/sources.list.d/ansible \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
     && apt-get update \
     && apt-get -y install ansible \
     && ansible --version \
+    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
+
+# Install docker pyhton module and docker compose
+RUN set -ex \
+    && apt-get update \
+    && apt-get install python-pip \
+    && pip install docker docker-compose \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 # http port
