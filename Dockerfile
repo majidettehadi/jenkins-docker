@@ -6,7 +6,9 @@ ENV JENKINS_SLAVE_AGENT_PORT 50000
 # Req
 RUN set -ex \
     && apt-get update \
-    && apt-get install -y ttf-dejavu fontconfig \
+    && apt-get install -y \
+        ttf-dejavu \
+        fontconfig \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 RUN set -ex \
@@ -19,7 +21,7 @@ VOLUME $JENKINS_HOME
 RUN mkdir -p /usr/share/jenkins/ref/init.groovy.d
 COPY files/init.groovy /usr/share/jenkins/ref/init.groovy.d/tcp-slave-agent-port.groovy
 
-ARG JENKINS_VERSION=2.204.1
+ARG JENKINS_VERSION=2.222.3
 
 ENV JENKINS_URL=https://repo.jenkins-ci.org/public/org/jenkins-ci/main/jenkins-war/${JENKINS_VERSION}/jenkins-war-${JENKINS_VERSION}.war
 
@@ -35,15 +37,6 @@ RUN set -ex \
     && apt-get update \
     && apt-get -y install docker-ce \
     && usermod -a -G docker jenkins \
-    && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
-
-# Install ansible 2.9
-RUN set -ex \
-    && echo "deb http://ppa.launchpad.net/ansible/ansible-2.9/ubuntu trusty main" > /etc/apt/sources.list.d/ansible \
-    && apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 93C4A3FD7BB9C367 \
-    && apt-get update \
-    && apt-get -y install -t trusty ansible \
-    && ansible --version \
     && rm -rf /var/lib/{apt,dpkg,cache,log}/ /tmp/* /var/tmp/*
 
 # http port
